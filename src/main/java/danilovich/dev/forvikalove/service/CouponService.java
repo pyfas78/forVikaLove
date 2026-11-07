@@ -4,6 +4,7 @@ import danilovich.dev.forvikalove.exception.CouponIsAlreadyUsedException;
 import danilovich.dev.forvikalove.exception.NoExistCouponException;
 import danilovich.dev.forvikalove.model.Coupon;
 import danilovich.dev.forvikalove.repository.CouponRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,5 +33,15 @@ public class CouponService {
             coupon.setUsedAt(LocalDate.now());
         }
         return couponRepository.save(coupon);
+    }
+
+    @PostConstruct
+    public void init() {
+        if(couponRepository.count() == 0) {
+            couponRepository.saveAll(List.of(
+            new Coupon("Массаж спинки?", "Блаблаблабла", "Приятности"),
+            new Coupon("Сделать лабы", "Опять работа...", "Учеба"),
+            new Coupon("Пообниматься", "Мгхмгмх", "Приятности")));
+        }
     }
 }
