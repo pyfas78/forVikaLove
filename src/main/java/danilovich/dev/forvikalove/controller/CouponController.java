@@ -26,5 +26,10 @@ public class CouponController {
         return couponService.useCoupon(id);
     }
 
+    @PostMapping
+    public Coupon createCoupon(@RequestBody Coupon coupon) {
+        return coupon;
+    }
+
 
 }

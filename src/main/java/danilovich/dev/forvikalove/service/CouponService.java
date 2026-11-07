@@ -35,6 +35,13 @@ public class CouponService {
         return couponRepository.save(coupon);
     }
 
+
+    public Coupon addCoupon(Coupon coupon) {
+        coupon.setUsed(false);
+        coupon.setUsedAt(null);
+        return couponRepository.save(coupon);
+    }
+
     @PostConstruct
     public void init() {
         if(couponRepository.count() == 0) {
