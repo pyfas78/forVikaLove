@@ -369,7 +369,6 @@
             background: var(--primary); color: white; border-color: var(--primary);
         }
 
-        /* 🎪 АРЕНА ДЛЯ ПАСХАЛКИ (УБЕГАЮЩАЯ КНОПКА) */
         .prank-arena {
             position: relative;
             height: 160px;
@@ -449,9 +448,9 @@
 
         <div class="controls-bar">
             <div class="filters">
-                <button class="filter-btn active" onclick="setFilter('all')">Все желания</button>
-                <button class="filter-btn" onclick="setFilter('available')">Доступные ✨</button>
-                <button class="filter-btn" onclick="setFilter('used')">Исполненные 💌</button>
+                <button class="filter-btn active" onclick="setFilter('all', this)">Все желания</button>
+                <button class="filter-btn" onclick="setFilter('available', this)">Доступные ✨</button>
+                <button class="filter-btn" onclick="setFilter('used', this)">Исполненные 💌</button>
             </div>
             <button class="btn-add-coupon" onclick="openCreateModal()">
                 🪄 Загадать желание
@@ -486,10 +485,10 @@
                 <label>Категория:</label>
                 <input type="text" id="new-category" class="form-control" value="Приятности" required>
                 <div class="cat-badges">
-                    <span class="cat-badge selected" onclick="selectCat('Приятности 🌸')">Приятности 🌸</span>
-                    <span class="cat-badge" onclick="selectCat('Романтика 💖')">Романтика 💖</span>
-                    <span class="cat-badge" onclick="selectCat('Вкусняшки 🍕')">Вкусняшки 🍕</span>
-                    <span class="cat-badge" onclick="selectCat('Отдых 🛁')">Отдых 🛁</span>
+                    <span class="cat-badge selected" onclick="selectCat('Приятности 🌸', this)">Приятности 🌸</span>
+                    <span class="cat-badge" onclick="selectCat('Романтика 💖', this)">Романтика 💖</span>
+                    <span class="cat-badge" onclick="selectCat('Вкусняшки 🍕', this)">Вкусняшки 🍕</span>
+                    <span class="cat-badge" onclick="selectCat('Отдых 🛁', this)">Отдых 🛁</span>
                 </div>
             </div>
 
@@ -590,10 +589,12 @@
         document.getElementById('stat-available').innerText = available;
     }
 
-    function setFilter(filter) {
+    function setFilter(filter, element) {
         currentFilter = filter;
         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
+        if (element) {
+            element.classList.add('active');
+        }
         renderCoupons();
     }
 
@@ -659,10 +660,12 @@
         document.getElementById('create-modal').classList.remove('active');
     }
 
-    function selectCat(catName) {
+    function selectCat(catName, element) {
         document.getElementById('new-category').value = catName;
         document.querySelectorAll('.cat-badge').forEach(b => b.classList.remove('selected'));
-        event.target.classList.add('selected');
+        if (element) {
+            element.classList.add('selected');
+        }
     }
 
     async function handleCreateCoupon(event) {
@@ -689,7 +692,9 @@
 
             closeCreateModal();
             document.getElementById('create-coupon-form').reset();
-            selectCat('Приятности 🌸');
+
+            const firstBadge = document.querySelector('.cat-badge');
+            selectCat('Приятности 🌸', firstBadge);
 
             triggerConfetti();
             showToast('Желание добавлено в чековую книжку! 🪄', '💖');
