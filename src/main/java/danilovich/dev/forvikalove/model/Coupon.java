@@ -12,27 +12,27 @@ public class Coupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name = "description", nullable = false)
     @NotBlank
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "category", nullable = false)
     private String category;
 
-    @Column(nullable = false)
-    private boolean active;
+    @Column(name = "used", nullable = false)
+    private boolean used;
 
-    @Column(nullable = false)
+    @Column(name = "used_at")
     private LocalDate usedAt;
 
-    public Coupon(String title, String description, String category, boolean active, LocalDate usedAt) {
+    public Coupon(String title, String description, String category, boolean used, LocalDate usedAt) {
         this.title = title;
         this.description = description;
         this.category = category;
-        this.active = false;
+        this.used = false;
         this.usedAt = null;
     }
 
@@ -71,12 +71,12 @@ public class Coupon {
         this.category = category;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isUsed() {
+        return used;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setUsed(boolean used) {
+        this.used = used;
     }
 
     public LocalDate getUsedAt() {
