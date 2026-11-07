@@ -28,7 +28,7 @@ public class CouponController {
 
     @PostMapping
     public Coupon createCoupon(@RequestBody Coupon coupon) {
-        return coupon;
+        return couponService.addCoupon(coupon);
     }
 
 

@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Библиотека конфетти -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
     <style>
@@ -38,7 +37,6 @@
             padding-bottom: 60px;
         }
 
-        /* Парящие сердечки на фоне */
         .heart-bg {
             position: fixed;
             top: -20px;
@@ -51,9 +49,7 @@
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(105vh) rotate(360deg);
-            }
+            to { transform: translateY(105vh) rotate(360deg); }
         }
 
         .container {
@@ -64,10 +60,9 @@
             z-index: 1;
         }
 
-        /* Шапка */
         header {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         .subtitle {
@@ -75,7 +70,6 @@
             font-size: 32px;
             color: var(--primary);
             margin-bottom: 5px;
-            letter-spacing: 1px;
         }
 
         h1 {
@@ -104,18 +98,25 @@
             color: var(--primary);
         }
 
-        /* Вкладки фильтров */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
         .filters {
             display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 35px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .filter-btn {
             background: white;
             border: 2px solid #ffd6de;
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 25px;
             font-size: 14px;
             font-weight: 600;
@@ -136,14 +137,33 @@
             box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
         }
 
-        /* Сетка купонов */
+        .btn-add-coupon {
+            background: linear-gradient(135deg, #ff4d6d, #c9184a);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.35);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-add-coupon:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.5);
+        }
+
         .coupons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
             gap: 25px;
         }
 
-        /* Карточка купона */
         .coupon-card {
             background: var(--card-bg);
             border-radius: 20px;
@@ -225,10 +245,6 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(255, 77, 109, 0.25);
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
         .btn-redeem:hover {
@@ -236,7 +252,6 @@
             box-shadow: 0 6px 20px rgba(255, 77, 109, 0.4);
         }
 
-        /* Использованный купон */
         .coupon-card.used {
             border-color: var(--used-border);
             opacity: 0.85;
@@ -265,7 +280,6 @@
             text-align: center;
             width: 100%;
             transform: rotate(-5deg);
-            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
         }
 
         .used-date {
@@ -281,10 +295,8 @@
             grid-column: 1 / -1;
             padding: 50px 20px;
             color: var(--text-muted);
-            font-size: 16px;
         }
 
-        /* Модальные окна */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -321,51 +333,43 @@
             transform: scale(1);
         }
 
-        .modal-emoji {
-            font-size: 46px;
-            margin-bottom: 12px;
-        }
+        .modal-emoji { font-size: 46px; margin-bottom: 12px; }
+        .modal h2 { font-size: 22px; margin-bottom: 10px; color: var(--text-dark); }
+        .modal p { font-size: 14px; color: #718096; margin-bottom: 20px; line-height: 1.5; }
 
-        .modal h2 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-
-        .modal p {
-            font-size: 14px;
-            color: #718096;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-        }
-
+        .modal-actions { display: flex; gap: 12px; }
         .modal-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
+            flex: 1; padding: 12px; border-radius: 12px;
+            font-size: 14px; font-weight: 700; cursor: pointer; border: none;
             transition: all 0.2s;
         }
+        .modal-btn.confirm { background: var(--primary); color: white; }
+        .modal-btn.cancel { background: #edf2f7; color: #4a5568; }
 
-        .modal-btn.confirm {
-            background: var(--primary);
-            color: white;
+        .form-group { text-align: left; margin-bottom: 16px; }
+        .form-group label {
+            display: block; font-size: 13px; font-weight: 600;
+            color: var(--text-dark); margin-bottom: 6px;
+        }
+        .form-control {
+            width: 100%; padding: 12px 14px;
+            border: 2px solid #ffd6de; border-radius: 12px;
+            font-size: 14px; outline: none; transition: border-color 0.2s;
+        }
+        .form-control:focus { border-color: var(--primary); }
+        textarea.form-control { resize: vertical; min-height: 70px; }
+
+        .cat-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+        .cat-badge {
+            background: #fff0f3; border: 1px solid #ffccd5;
+            padding: 4px 10px; border-radius: 15px; font-size: 12px;
+            cursor: pointer; color: var(--text-muted); transition: all 0.2s;
+        }
+        .cat-badge:hover, .cat-badge.selected {
+            background: var(--primary); color: white; border-color: var(--primary);
         }
 
-        .modal-btn.cancel {
-            background: #edf2f7;
-            color: #4a5568;
-        }
-
-        /* 🎪 АРЕНА ДЛЯ СЕКРЕТНОГО ВОПРОСА (ПАСХАЛКА) */
+        /* 🎪 АРЕНА ДЛЯ ПАСХАЛКИ (УБЕГАЮЩАЯ КНОПКА) */
         .prank-arena {
             position: relative;
             height: 160px;
@@ -398,14 +402,8 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(43, 147, 72, 0.3);
             z-index: 10;
-            transition: transform 0.2s;
         }
 
-        .btn-no:hover {
-            transform: scale(1.08);
-        }
-
-        /* Кнопка "ДА", которая убегает */
         .btn-yes-runaway {
             position: absolute;
             background: #ff4d6d;
@@ -422,29 +420,17 @@
             z-index: 5;
         }
 
-        /* Toast */
         .toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: white;
-            padding: 16px 24px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 1000;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            bottom: 30px; right: 30px;
+            background: white; padding: 16px 24px;
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex; align-items: center; gap: 12px;
+            z-index: 1000; transform: translateY(100px);
+            opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             border-left: 5px solid var(--primary);
         }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        .toast.show { transform: translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
@@ -461,10 +447,15 @@
             <span>Всего: <b id="stat-total">0</b></span>
         </div>
 
-        <div class="filters">
-            <button class="filter-btn active" onclick="setFilter('all')">Все желания</button>
-            <button class="filter-btn" onclick="setFilter('available')">Доступные ✨</button>
-            <button class="filter-btn" onclick="setFilter('used')">Исполненные 💌</button>
+        <div class="controls-bar">
+            <div class="filters">
+                <button class="filter-btn active" onclick="setFilter('all')">Все желания</button>
+                <button class="filter-btn" onclick="setFilter('available')">Доступные ✨</button>
+                <button class="filter-btn" onclick="setFilter('used')">Исполненные 💌</button>
+            </div>
+            <button class="btn-add-coupon" onclick="openCreateModal()">
+                🪄 Загадать желание
+            </button>
         </div>
     </header>
 
@@ -473,7 +464,44 @@
     </main>
 </div>
 
-<!-- 1. СТАНДАРТНАЯ МОДАЛКА (для остальных купонов) -->
+<!-- МОДАЛКА: СОЗДАТЬ СВОЙ КУПОН -->
+<div class="modal-overlay" id="create-modal">
+    <div class="modal">
+        <div class="modal-emoji">🪄</div>
+        <h2>Загадай своё желание!</h2>
+        <p>Олег обязательно его исполнит 💕</p>
+
+        <form id="create-coupon-form" onsubmit="handleCreateCoupon(event)">
+            <div class="form-group">
+                <label>Чего хочется?</label>
+                <input type="text" id="new-title" class="form-control" placeholder="Например: Поездка на закат" required>
+            </div>
+
+            <div class="form-group">
+                <label>Подробности (по желанию):</label>
+                <textarea id="new-desc" class="form-control" placeholder="Например: С кофе и пледом на берегу реки" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Категория:</label>
+                <input type="text" id="new-category" class="form-control" value="Приятности" required>
+                <div class="cat-badges">
+                    <span class="cat-badge selected" onclick="selectCat('Приятности 🌸')">Приятности 🌸</span>
+                    <span class="cat-badge" onclick="selectCat('Романтика 💖')">Романтика 💖</span>
+                    <span class="cat-badge" onclick="selectCat('Вкусняшки 🍕')">Вкусняшки 🍕</span>
+                    <span class="cat-badge" onclick="selectCat('Отдых 🛁')">Отдых 🛁</span>
+                </div>
+            </div>
+
+            <div class="modal-actions" style="margin-top: 25px;">
+                <button type="button" class="modal-btn cancel" onclick="closeCreateModal()">Отмена</button>
+                <button type="submit" class="modal-btn confirm">Записать в книжку ✨</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- МОДАЛКА: ОБЫЧНОЕ ПОДТВЕРЖДЕНИЕ -->
 <div class="modal-overlay" id="confirm-modal">
     <div class="modal">
         <div class="modal-emoji">🎁</div>
@@ -486,7 +514,7 @@
     </div>
 </div>
 
-<!-- 2. СЕКРЕТНАЯ МОДАЛКА-ПРАНК (ТОЛЬКО ДЛЯ ПЕРВОГО КУПОНА) -->
+<!-- МОДАЛКА: ПРАНК "ТЫ МЕНЯ НЕНАВИДИШЬ?" (КАЖДЫЙ 3-Й КУПОН) -->
 <div class="modal-overlay" id="prank-modal">
     <div class="modal">
         <div class="modal-emoji">⚠️</div>
@@ -497,12 +525,9 @@
         <div class="prank-hint" id="prank-hint"></div>
 
         <div class="prank-arena" id="prank-arena">
-            <!-- Статичная зеленая кнопка "НЕТ" -->
             <button class="btn-no" id="btn-prank-no" onclick="handleNoClick()">
                 Нет ❤️
             </button>
-
-            <!-- Убегающая красная кнопка "ДА" -->
             <button class="btn-yes-runaway" id="btn-prank-yes">
                 Да 😈
             </button>
@@ -510,7 +535,6 @@
     </div>
 </div>
 
-<!-- Toast уведомление -->
 <div class="toast" id="toast">
     <span id="toast-icon">✨</span>
     <span id="toast-text">Желание активировано!</span>
@@ -525,7 +549,6 @@
     let currentFilter = 'all';
     let pendingCouponId = null;
 
-    // Падающие сердечки на фоне
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart-bg');
@@ -535,12 +558,10 @@
         heart.style.animationDuration = Math.random() * 5 + 6 + 's';
         heart.style.opacity = Math.random() * 0.4 + 0.1;
         document.body.appendChild(heart);
-
         setTimeout(() => heart.remove(), 11000);
     }
     setInterval(createHeart, 800);
 
-    // Загрузка купонов с бэкенда
     async function fetchCoupons() {
         try {
             const response = await fetch(API_BASE);
@@ -576,7 +597,6 @@
         renderCoupons();
     }
 
-    // Отрисовка списка купонов
     function renderCoupons() {
         const container = document.getElementById('coupons-container');
         container.innerHTML = '';
@@ -589,7 +609,7 @@
             container.innerHTML = `
                     <div class="empty-state">
                         <h3>Здесь пока ничего нет 💕</h3>
-                        <p>Но Олег обязательно добавит новые желания!</p>
+                        <p>Нажми «🪄 Загадать желание», чтобы добавить первое!</p>
                     </div>
                 `;
             return;
@@ -604,8 +624,8 @@
                 ? new Date(coupon.usedAt).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
                 : '';
 
-            // Проверяем: первый ли это купон в общем списке
-            const isFirstCoupon = (coupons.length > 0 && coupons[0].id === coupon.id);
+            // 🔥 КАЖДЫЙ ТРЕТИЙ КУПОН (3-й, 6-й, 9-й и т.д.)
+            const isPrankCoupon = ((index + 1) % 3 === 0);
 
             card.innerHTML = `
                     <div>
@@ -620,7 +640,7 @@
                                 <div class="used-date">${dateFormatted}</div>
                             </div>
                         ` : `
-                            <button class="btn-redeem" onclick="handleCouponClick(${coupon.id}, '${escapeHtml(coupon.title)}', ${isFirstCoupon})">
+                            <button class="btn-redeem" onclick="handleCouponClick(${coupon.id}, '${escapeHtml(coupon.title)}', ${isPrankCoupon})">
                                 ✨ Использовать купон
                             </button>
                         `}
@@ -630,20 +650,68 @@
         });
     }
 
-    // Клик по кнопке "Использовать"
-    function handleCouponClick(id, title, isFirst) {
-        pendingCouponId = id;
+    /* --- СОЗДАНИЕ КУПОНА ВИКОЙ --- */
+    function openCreateModal() {
+        document.getElementById('create-modal').classList.add('active');
+    }
 
-        if (isFirst) {
-            // Если это ПЕРВЫЙ купон — открываем модалку-пранк!
+    function closeCreateModal() {
+        document.getElementById('create-modal').classList.remove('active');
+    }
+
+    function selectCat(catName) {
+        document.getElementById('new-category').value = catName;
+        document.querySelectorAll('.cat-badge').forEach(b => b.classList.remove('selected'));
+        event.target.classList.add('selected');
+    }
+
+    async function handleCreateCoupon(event) {
+        event.preventDefault();
+        const title = document.getElementById('new-title').value.trim();
+        const description = document.getElementById('new-desc').value.trim();
+        const category = document.getElementById('new-category').value.trim();
+
+        if (!title || !description || !category) return;
+
+        try {
+            const response = await fetch(API_BASE, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, description, category })
+            });
+
+            if (!response.ok) {
+                throw new Error('Не удалось сохранить купон на сервере');
+            }
+
+            const createdCoupon = await response.json();
+            coupons.push(createdCoupon);
+
+            closeCreateModal();
+            document.getElementById('create-coupon-form').reset();
+            selectCat('Приятности 🌸');
+
+            triggerConfetti();
+            showToast('Желание добавлено в чековую книжку! 🪄', '💖');
+            updateStats();
+            renderCoupons();
+
+        } catch (err) {
+            console.error(err);
+            showToast(err.message, '⚠️');
+        }
+    }
+
+    /* --- КЛИК ПО КУПОНУ --- */
+    function handleCouponClick(id, title, isPrank) {
+        pendingCouponId = id;
+        if (isPrank) {
             openPrankModal();
         } else {
-            // Для остальных купонов — обычное подтверждение
             openRegularModal(title);
         }
     }
 
-    /* --- ОБЫЧНАЯ МОДАЛКА --- */
     function openRegularModal(title) {
         document.getElementById('modal-title').innerText = `«${title}»`;
         document.getElementById('confirm-modal').classList.add('active');
@@ -661,24 +729,14 @@
         await redeemCoupon(id);
     });
 
-    /* --- 🎪 СЕКРЕТНАЯ МОДАЛКА-ПРАНК (ПАСХАЛКА) --- */
-    const prankPhrases = [
-        'Не попала! 😜',
-        'Даже не думай! 😂',
-        'Кнопка сломалась! 🏃‍♂️💨',
-        'Куда тянешься? 🙈',
-        'Ой, убежала! 💨',
-        'Попробуй другую кнопку! ❤️',
-        'Ответ неверный! 🤭',
-        'Без шансов! 💅'
-    ];
+    /* --- ПАСХАЛКА "ТЫ МЕНЯ НЕНАВИДИШЬ?" --- */
+    const prankPhrases = ['Не попала! 😜', 'Даже не думай! 😂', 'Кнопка сломалась! 🏃‍♂️💨', 'Куда тянешься? 🙈', 'Ой, убежала! 💨', 'Попробуй другую кнопку! ❤️', 'Без шансов! 💅'];
     let phraseIndex = 0;
 
     function openPrankModal() {
-        const modal = document.getElementById('prank-modal');
-        document.getElementById('prank-hint').innerText = '';
-        modal.classList.add('active');
-        resetYesButtonPosition();
+        document.getElementById('prank-modal').classList.add('active');
+        document.getElementById('btn-prank-yes').style.left = '35px';
+        document.getElementById('btn-prank-yes').style.top = '30px';
     }
 
     function closePrankModal() {
@@ -686,13 +744,6 @@
         pendingCouponId = null;
     }
 
-    function resetYesButtonPosition() {
-        const yesBtn = document.getElementById('btn-prank-yes');
-        yesBtn.style.left = '35px';
-        yesBtn.style.top = '30px';
-    }
-
-    // Логика побега кнопки "ДА" без наложения на "НЕТ"
     function moveYesButton() {
         const arena = document.getElementById('prank-arena');
         const yesBtn = document.getElementById('btn-prank-yes');
@@ -707,52 +758,35 @@
         const maxX = arena.clientWidth - yesW - 10;
         const maxY = arena.clientHeight - yesH - 10;
 
-        // Позиция кнопки "НЕТ" относительно арены
         const noRelX = noRect.left - arenaRect.left;
         const noRelY = noRect.top - arenaRect.top;
-        const noW = noRect.width;
-        const noH = noRect.height;
 
-        let newX, newY;
-        let attempts = 0;
-
-        // Ищем координаты, пока они НЕ пересекаются с кнопкой "НЕТ" (с запасом 20px)
+        let newX, newY, attempts = 0;
         while (attempts < 40) {
             newX = Math.floor(Math.random() * Math.max(maxX, 10)) + 5;
             newY = Math.floor(Math.random() * Math.max(maxY, 10)) + 5;
 
             const overlap = !(
                 newX + yesW + 20 < noRelX ||
-                newX > noRelX + noW + 20 ||
+                newX > noRelX + noRect.width + 20 ||
                 newY + yesH + 20 < noRelY ||
-                newY > noRelY + noH + 20
+                newY > noRelY + noRect.height + 20
             );
-
             if (!overlap) break;
             attempts++;
         }
 
         yesBtn.style.left = `${newX}px`;
         yesBtn.style.top = `${newY}px`;
-
-        // Меняем поддразнивающий текст
         document.getElementById('prank-hint').innerText = prankPhrases[phraseIndex % prankPhrases.length];
         phraseIndex++;
     }
 
-    // Навешиваем реакцию на мышь и на тач (на телефонах)
     const yesButton = document.getElementById('btn-prank-yes');
     yesButton.addEventListener('mouseenter', moveYesButton);
-    yesButton.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Запрещаем нажатие на смартфонах
-        moveYesButton();
-    });
-    yesButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        moveYesButton();
-    });
+    yesButton.addEventListener('touchstart', (e) => { e.preventDefault(); moveYesButton(); });
+    yesButton.addEventListener('click', (e) => { e.preventDefault(); moveYesButton(); });
 
-    // Когда она нажимает "НЕТ ❤️"
     async function handleNoClick() {
         if (!pendingCouponId) return;
         const id = pendingCouponId;
@@ -761,46 +795,35 @@
         await redeemCoupon(id);
     }
 
-    /* --- АКТИВАЦИЯ КУПОНА (API ЗАПРОС) --- */
+    /* --- АКТИВАЦИЯ КУПОНА --- */
     async function redeemCoupon(id) {
         try {
-            const response = await fetch(`${API_BASE}/${id}/used`, {
-                method: 'POST'
-            });
-
+            const response = await fetch(`${API_BASE}/${id}/used`, { method: 'POST' });
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.error || 'Не удалось активировать купон');
             }
-
             const updatedCoupon = await response.json();
-
             const idx = coupons.findIndex(c => c.id === id);
-            if (idx !== -1) {
-                coupons[idx] = updatedCoupon;
-            }
+            if (idx !== -1) coupons[idx] = updatedCoupon;
 
             triggerConfetti();
             updateStats();
             renderCoupons();
-
         } catch (err) {
             console.error(err);
             showToast(err.message, '⚠️');
         }
     }
 
-    // Салют из конфетти
     function triggerConfetti() {
         const count = 200;
         const defaults = { origin: { y: 0.7 } };
-
         function fire(particleRatio, opts) {
             confetti(Object.assign({}, defaults, opts, {
                 particleCount: Math.floor(count * particleRatio)
             }));
         }
-
         fire(0.25, { spread: 26, startVelocity: 55, colors: ['#ff4d6d', '#ff758f', '#ffffff'] });
         fire(0.2, { spread: 60, colors: ['#ffb3c1', '#ff4d6d'] });
         fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
@@ -819,11 +842,7 @@
     function escapeHtml(text) {
         if (!text) return '';
         return text.replace(/[&<>"']/g, m => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
         })[m]);
     }
 
