@@ -22,16 +22,15 @@ public class CouponService {
         return couponRepository.findAll();
     }
 
-    public Optional<Coupon> useCoupon(Long id) {
-        Optional<Coupon> coupon = couponRepository.findById(id)
+    public Coupon useCoupon(Long id) {
+        Coupon coupon = couponRepository.findById(id)
                 .orElseThrow(() -> new NoExistCouponException(id));
-        if(coupon.get().isUsed()) {
+        if(coupon.isUsed()) {
             throw new CouponIsAlreadyUsedException(id);
         } else {
-            coupon.get().setUsed(true);
-            coupon.get().setUsedAt(LocalDate.now());
-            couponRepository.save(coupon.get());
+            coupon.setUsed(true);
+            coupon.setUsedAt(LocalDate.now());
         }
-        return coupon;
+        return couponRepository.save(coupon);
     }
 }
