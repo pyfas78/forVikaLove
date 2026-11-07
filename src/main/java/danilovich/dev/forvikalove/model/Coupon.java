@@ -28,7 +28,7 @@ public class Coupon {
     @Column(name = "used_at")
     private LocalDate usedAt;
 
-    public Coupon(String title, String description, String category, boolean used, LocalDate usedAt) {
+    public Coupon(String title, String description, String category) {
         this.title = title;
         this.description = description;
         this.category = category;
