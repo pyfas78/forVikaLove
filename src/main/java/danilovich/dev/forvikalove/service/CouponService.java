@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class CouponService {
-    private CouponRepository couponRepository;
+    private final CouponRepository couponRepository;
 
     public CouponService(CouponRepository couponRepository) {
         this.couponRepository = couponRepository;
@@ -23,8 +23,9 @@ public class CouponService {
     }
 
     public Optional<Coupon> useCoupon(Long id) {
-        Optional<Coupon> coupon = couponRepository.findById(id);
-        if(couponRepository.findByUsed(false).isEmpty()) {
+        Optional<Coupon> coupon = couponRepository.findById(id)
+                .orElseThrow(() -> new NoExistCouponException(id));
+        if(coupon.get().isUsed()) {
             throw new CouponIsAlreadyUsedException(id);
         } else {
             coupon.get().setUsed(true);
