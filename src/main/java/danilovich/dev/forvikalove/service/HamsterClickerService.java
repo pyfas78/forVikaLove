@@ -1,6 +1,5 @@
 package danilovich.dev.forvikalove.service;
 
-import danilovich.dev.forvikalove.exception.NoExistHamsterException;
 import danilovich.dev.forvikalove.model.HamsterClicker;
 import danilovich.dev.forvikalove.repository.HamsterClickerRepository;
 import jakarta.annotation.PostConstruct;
