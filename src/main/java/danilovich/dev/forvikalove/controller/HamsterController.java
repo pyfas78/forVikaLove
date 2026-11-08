@@ -21,7 +21,7 @@ public class HamsterController {
     }
 
     @PostMapping("/kiss")
-    public HamsterClicker kissHamster(@RequestParam(defaultValue = "1") int count, Long id) {
+    public HamsterClicker kissHamster(@RequestParam(defaultValue = "1") int count) {
         return hamsterClickerService.kiss(count);
     }
 }

@@ -33,11 +33,9 @@ public class HamsterClickerService {
     public HamsterClicker kiss(int count) {
         HamsterClicker hamster = hamsterClickerRepository.findById(1L).orElse(null);
         hamster.setTotalKisses(hamster.getTotalKisses() + count);
-        if(hamster.getTotalKisses() < 50) {
-            hamster.setLevel("Скромный хомячОк");
-        } if(hamster.getTotalKisses() < 200) {
-            hamster.setLevel("Довольный хомяк Олег");
-        } else if(hamster.getTotalKisses() < 500) {hamster.setLevel("Любими Олег");}
+        if(hamster.getTotalKisses() < 50) {hamster.setLevel("Скромный хомячОк");}
+        else if(hamster.getTotalKisses() < 200) {hamster.setLevel("Довольный хомяк Олег");}
+        else if(hamster.getTotalKisses() < 500) {hamster.setLevel("Любими Олег");}
         else if (hamster.getTotalKisses() < 1000) {hamster.setLevel("зацелованный Олег"); }
         else { hamster.setLevel("Абсолютно довольный хомячок");}
         hamster.setLastKissData(LocalDate.now());
