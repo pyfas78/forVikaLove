@@ -328,7 +328,7 @@
             border-radius: 12px;
         }
 
-        /* --- ВЕКТОРНЫЙ ХОМЯК И КЛИКЕР --- */
+        /* --- СЕКЦИЯ ХОМЯКА-КЛИКЕРА --- */
         .hamster-section {
             display: flex;
             flex-direction: column;
@@ -362,15 +362,37 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(255, 117, 143, 0.2);
+        }
+
+        .kisses-counter {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 2px;
+            text-shadow: 0 2px 10px rgba(255, 77, 109, 0.2);
+        }
+
+        .kisses-counter span {
+            font-size: 26px;
+            color: var(--primary);
+        }
+
+        .hamster-mood-quote {
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            color: var(--primary);
+            min-height: 32px;
+            margin: 5px 0 15px;
+            font-weight: 700;
         }
 
         .hamster-arena {
             position: relative;
             width: 250px;
             height: 250px;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -378,7 +400,6 @@
             cursor: pointer;
         }
 
-        /* SVG Анимация и сжатие хомяка */
         .hamster-svg {
             width: 100%;
             height: 100%;
@@ -389,24 +410,11 @@
         }
 
         .hamster-arena:active .hamster-svg {
-            transform: scale(0.91) translateY(4px);
-        }
-
-        .kisses-counter {
-            font-size: 42px;
-            font-weight: 800;
-            color: var(--primary-dark);
-            margin-bottom: 5px;
-            text-shadow: 0 2px 10px rgba(255, 77, 109, 0.2);
-        }
-
-        .kisses-counter span {
-            font-size: 26px;
-            color: var(--primary);
+            transform: scale(0.90) translateY(6px);
         }
 
         .progress-box {
-            margin: 20px 0 15px;
+            margin: 15px 0 15px;
             width: 100%;
         }
 
@@ -469,7 +477,6 @@
             font-weight: 500;
         }
 
-        /* Вылетающие частицы клика */
         .floating-kiss {
             position: absolute;
             font-size: 24px;
@@ -488,7 +495,7 @@
             100% { opacity: 0; transform: translate(-50%, -85px) scale(0.9); }
         }
 
-        /* --- МОДАЛКИ (ДОБАВЛЕНИЕ КУПОНА И ПАСХАЛКА) --- */
+        /* --- МОДАЛКИ (НОВОЕ ЖЕЛАНИЕ) --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -600,34 +607,35 @@
             cursor: pointer;
         }
 
-        /* Пасхалка */
-        .prank-box { text-align: center; max-width: 400px; }
-        .prank-box h2 { font-size: 24px; color: var(--text-dark); margin-bottom: 12px; }
-        .prank-box p { font-size: 14px; color: #666; margin-bottom: 25px; }
+        /* --- ПАСХАЛКА-МЕМ (ОБНОВЛЕННАЯ С БЕЗОПАСНЫМИ ЗОНАМИ ДЛЯ ТЕЛЕФОНА) --- */
+        .prank-box {
+            text-align: center;
+            max-width: 400px;
+            padding: 28px 22px;
+        }
 
-        .prank-buttons-area {
+        .prank-box h2 {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .prank-box p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        /* Арена для убегающей кнопки "Да" */
+        .prank-escape-zone {
             position: relative;
-            height: 140px;
+            height: 120px;
             background: #fff0f3;
             border-radius: 18px;
             border: 2px dashed #ffccd5;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-no-love {
-            background: #2ecc71;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-            z-index: 2;
+            margin-bottom: 10px;
         }
 
         .btn-yes-love {
@@ -635,15 +643,56 @@
             background: #e74c3c;
             color: white;
             border: none;
-            padding: 8px 18px;
+            padding: 9px 18px;
             border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.15s ease-out;
-            z-index: 3;
-            left: 35px;
-            top: 25px;
+            transition: all 0.12s ease-out;
+            z-index: 5;
+            left: 20px;
+            top: 20px;
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+            user-select: none;
+        }
+
+        .prank-hint {
+            min-height: 24px;
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        /* Безопасная отдельная зона для кнопки "НЕТ" */
+        .prank-safe-zone {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn-no-love {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 15px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .btn-no-love:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.45);
+        }
+
+        .btn-no-love:active {
+            transform: scale(0.96);
         }
 
         /* Уведомление Toast */
@@ -726,51 +775,19 @@
 
             <div class="hamster-card">
                 <div class="hamster-level-badge" id="hamster-level-badge">
-                    <span>👑</span> <span id="hamster-level-text">Скромный хомячОк</span>
+                    <span id="hamster-level-icon">🥺</span> <span id="hamster-level-text">Скромный хомячОк</span>
                 </div>
 
                 <div class="kisses-counter">
                     <span id="hamster-total-kisses">0</span> <span>💋</span>
                 </div>
-                <div style="font-size: 13px; color: #888; font-weight: 600;">поцелуев подарено</div>
+                <div class="hamster-mood-quote" id="hamster-mood-quote">«Меня никто не целует... жизнь тлен 🥺»</div>
 
-                <!-- ИНТЕРАКТИВНЫЙ ХОМЯК -->
-                <div class="hamster-arena" id="hamster-arena" onclick="tapHamster(event)">
-                    <!-- Милый векторный хомяк SVG -->
-                    <svg class="hamster-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Ушки -->
-                        <ellipse cx="60" cy="55" rx="22" ry="26" fill="#f4a261" />
-                        <ellipse cx="60" cy="55" rx="13" ry="17" fill="#ffb4a2" />
-                        <ellipse cx="140" cy="55" rx="22" ry="26" fill="#f4a261" />
-                        <ellipse cx="140" cy="55" rx="13" ry="17" fill="#ffb4a2" />
-                        <!-- Тело/Голова хомяка -->
-                        <ellipse cx="100" cy="115" rx="68" ry="62" fill="#e76f51" />
-                        <ellipse cx="100" cy="118" rx="64" ry="58" fill="#f4a261" />
-                        <!-- Пузико -->
-                        <ellipse cx="100" cy="138" rx="42" ry="34" fill="#faedcd" />
-                        <!-- Глазки -->
-                        <ellipse cx="78" cy="105" rx="7" ry="10" fill="#2b2d42" />
-                        <circle cx="76" cy="101" r="3.5" fill="white" />
-                        <ellipse cx="122" cy="105" rx="7" ry="10" fill="#2b2d42" />
-                        <circle cx="120" cy="101" r="3.5" fill="white" />
-                        <!-- Розовые щёчки -->
-                        <ellipse cx="65" cy="120" rx="12" ry="8" fill="#ff758f" opacity="0.6" />
-                        <ellipse cx="135" cy="120" rx="12" ry="8" fill="#ff758f" opacity="0.6" />
-                        <!-- Носик и ротик -->
-                        <polygon points="96,114 104,114 100,120" fill="#c9184a" />
-                        <path d="M94 122 Q100 128 100 123 Q100 128 106 122" stroke="#590d22" stroke-width="2.5" stroke-linecap="round" fill="none" />
-                        <!-- Лапки -->
-                        <ellipse cx="70" cy="165" rx="12" ry="9" fill="#f4a261" />
-                        <ellipse cx="130" cy="165" rx="12" ry="9" fill="#f4a261" />
-                        <!-- Маленькое сердечко в лапках -->
-                        <path d="M100 148 C95 140 85 143 85 150 C85 158 100 166 100 166 C100 166 115 158 115 150 C115 143 105 140 100 148 Z" fill="#ff4d6d" />
-                    </svg>
-                </div>
+                <div class="hamster-arena" id="hamster-arena" onclick="tapHamster(event)"></div>
 
-                <!-- ПРОГРЕСС ДО СЛЕДУЮЩЕГО УРОВНЯ -->
                 <div class="progress-box">
                     <div class="progress-labels">
-                        <span id="progress-next-label">До след. уровня: 50 💋</span>
+                        <span id="progress-next-label">До след. ранга: 50 💋</span>
                         <span id="progress-percent">0%</span>
                     </div>
                     <div class="progress-track">
@@ -819,16 +836,25 @@
     </div>
 </div>
 
-<!-- ==================== ПАСХАЛКА-МЕМ ==================== -->
+<!-- ==================== ПАСХАЛКА-МЕМ С РАЗДЕЛЕННЫМИ ЗОНАМИ ==================== -->
 <div class="modal-overlay" id="prank-modal">
     <div class="modal-box prank-box">
         <h2>Проверка чувств! 🚨</h2>
         <p>Прежде чем взять это желание, ответь честно:<br><b>Ты меня ненавидишь? 🥺</b></p>
-        <div class="prank-buttons-area" id="prank-arena">
-            <button class="btn-no-love" id="btn-prank-no" onclick="handleNoClick()">НЕТ, Я ТЕБЯ ЛЮБЛЮ! ❤️</button>
+
+        <!-- АРЕНА ДЛЯ УБЕГАЮЩЕЙ КНОПКИ ДА -->
+        <div class="prank-escape-zone" id="prank-arena">
             <button class="btn-yes-love" id="btn-prank-yes">Да 😡</button>
         </div>
-        <p id="prank-hint" style="margin-top: 15px; font-size: 13px; color: var(--primary); font-weight: 600;">Попробуй нажать «Да» 😜</p>
+
+        <p id="prank-hint" class="prank-hint">Попробуй нажать «Да» 😜</p>
+
+        <!-- БЕЗОПАСНАЯ ЗОНА ДЛЯ КНОПКИ НЕТ (НИКОГДА НЕ ПЕРЕКРЫВАЕТСЯ) -->
+        <div class="prank-safe-zone">
+            <button class="btn-no-love" id="btn-prank-no" onclick="handleNoClick(event)">
+                НЕТ, Я ТЕБЯ ЛЮБЛЮ! ❤️
+            </button>
+        </div>
     </div>
 </div>
 
@@ -847,7 +873,6 @@
     let selectedCategory = 'ROMANTIC';
     let pendingCouponId = null;
 
-    // Данные хомяка
     let hamsterData = {
         totalKisses: 0,
         level: 'Скромный хомячОк',
@@ -855,6 +880,7 @@
     };
     let pendingKisses = 0;
     let kissDebounceTimer = null;
+    let currentRenderedStage = null;
 
     /* --- ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК --- */
     function switchNavTab(tab, el) {
@@ -882,7 +908,7 @@
     }
     setInterval(createHeart, 800);
 
-    /* --- ПОЛУЧЕНИЕ И ОТРИСОВКА КУПОНОВ --- */
+    /* --- КУПОНЫ --- */
     async function fetchCoupons() {
         try {
             const res = await fetch(API_BASE);
@@ -926,16 +952,22 @@
             return;
         }
 
-        filtered.forEach((c, idx) => {
+        // СЧЕТЧИК ТОЛЬКО ДОСТУПНЫХ КУПОНОВ (СТРОГО КАЖДЫЙ 3-Й)
+        let availableCount = 0;
+
+        filtered.forEach((c) => {
             const card = document.createElement('div');
             let statusClass = 'available';
             let badgeText = 'Доступно к использованию';
             let actionArea = '';
 
             if (c.status === 'AVAILABLE') {
+                availableCount++;
+                const isPrank = (availableCount % 3 === 0);
+
                 statusClass = 'available';
                 badgeText = 'Доступно ✨';
-                actionArea = `<button class="action-btn btn-take" onclick="handleCouponClick(${c.id}, ${idx})">
+                actionArea = `<button class="action-btn btn-take" onclick="handleCouponClick(${c.id}, ${isPrank})">
                     Взять в работу 💖
                 </button>`;
             } else if (c.status === 'IN_PROGRESS') {
@@ -967,9 +999,9 @@
         });
     }
 
-    /* --- ЛОГИКА КЛИКА ПО КУПОНУ (ПАСХАЛКА НА КАЖДЫЙ 3-Й) --- */
-    function handleCouponClick(id, index) {
-        if ((index + 1) % 3 === 0) {
+    /* --- ЛОГИКА КЛИКА ПО КУПОНУ --- */
+    function handleCouponClick(id, isPrank) {
+        if (isPrank) {
             pendingCouponId = id;
             openPrankModal();
         } else {
@@ -1015,14 +1047,24 @@
         }
     }
 
-    /* --- ПАСХАЛКА "ТЫ МЕНЯ НЕНАВИДИШЬ?" --- */
-    const prankPhrases = ['Не попала! 😜', 'Даже не думай! 😂', 'Кнопка сломалась! 🏃‍♂️💨', 'Куда тянешься? 🙈', 'Ой, убежала! 💨', 'Попробуй другую кнопку! ❤️', 'Без шансов! 💅'];
+    /* --- ПАСХАЛКА "ТЫ МЕНЯ НЕНАВИДИШЬ?" (БЕЗУПРЕЧНАЯ РАБОТА НА ТЕЛЕФОНЕ) --- */
+    const prankPhrases = [
+        'Не попала! 😜',
+        'Даже не думай! 😂',
+        'Кнопка сломалась! 🏃‍♂️💨',
+        'Куда тянешься? 🙈',
+        'Ой, убежала! 💨',
+        'Попробуй зеленую кнопку! ❤️',
+        'Без шансов! 💅'
+    ];
     let phraseIndex = 0;
 
     function openPrankModal() {
         document.getElementById('prank-modal').classList.add('active');
-        document.getElementById('btn-prank-yes').style.left = '35px';
-        document.getElementById('btn-prank-yes').style.top = '25px';
+        const yesBtn = document.getElementById('btn-prank-yes');
+        yesBtn.style.left = '20px';
+        yesBtn.style.top = '20px';
+        document.getElementById('prank-hint').innerText = 'Попробуй нажать «Да» 😜';
     }
 
     function closePrankModal() {
@@ -1033,47 +1075,43 @@
     function moveYesButton() {
         const arena = document.getElementById('prank-arena');
         const yesBtn = document.getElementById('btn-prank-yes');
-        const noBtn = document.getElementById('btn-prank-no');
 
-        const arenaRect = arena.getBoundingClientRect();
-        const noRect = noBtn.getBoundingClientRect();
+        const arenaW = arena.clientWidth || 280;
+        const arenaH = arena.clientHeight || 120;
+        const btnW = yesBtn.offsetWidth || 70;
+        const btnH = yesBtn.offsetHeight || 36;
 
-        const yesW = yesBtn.offsetWidth || 75;
-        const yesH = yesBtn.offsetHeight || 38;
+        const maxX = Math.max(10, arenaW - btnW - 15);
+        const maxY = Math.max(10, arenaH - btnH - 15);
 
-        const maxX = arena.clientWidth - yesW - 10;
-        const maxY = arena.clientHeight - yesH - 10;
-
-        const noRelX = noRect.left - arenaRect.left;
-        const noRelY = noRect.top - arenaRect.top;
-
-        let newX, newY, attempts = 0;
-        while (attempts < 40) {
-            newX = Math.floor(Math.random() * Math.max(maxX, 10)) + 5;
-            newY = Math.floor(Math.random() * Math.max(maxY, 10)) + 5;
-
-            const overlap = !(
-                newX + yesW + 20 < noRelX ||
-                newX > noRelX + noRect.width + 20 ||
-                newY + yesH + 20 < noRelY ||
-                newY > noRelY + noRect.height + 20
-            );
-            if (!overlap) break;
-            attempts++;
-        }
+        const newX = Math.floor(Math.random() * maxX) + 8;
+        const newY = Math.floor(Math.random() * maxY) + 8;
 
         yesBtn.style.left = `${newX}px`;
         yesBtn.style.top = `${newY}px`;
+
         document.getElementById('prank-hint').innerText = prankPhrases[phraseIndex % prankPhrases.length];
         phraseIndex++;
     }
 
     const yesButton = document.getElementById('btn-prank-yes');
     yesButton.addEventListener('mouseenter', moveYesButton);
-    yesButton.addEventListener('touchstart', (e) => { e.preventDefault(); moveYesButton(); });
-    yesButton.addEventListener('click', (e) => { e.preventDefault(); moveYesButton(); });
+    yesButton.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        moveYesButton();
+    }, { passive: false });
+    yesButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        moveYesButton();
+    });
 
-    async function handleNoClick() {
+    async function handleNoClick(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         if (!pendingCouponId) return;
         const id = pendingCouponId;
         closePrankModal();
@@ -1081,7 +1119,162 @@
         await takeCoupon(id);
     }
 
-    /* --- ЛОГИКА ХОМЯКА-КЛИКЕРА --- */
+    /* --- 5 СТАДИЙ ЭВОЛЮЦИИ ХОМЯКА ОЛЕГА --- */
+    const HAMSTER_STAGES = {
+        1: {
+            title: 'Скромный хомячОк',
+            icon: '🥺',
+            quote: '«Меня никто не целует... жизнь тлен 🥺»',
+            svg: `
+            <svg class="hamster-svg" viewBox="0 0 200 200" fill="none">
+                <ellipse cx="60" cy="70" rx="20" ry="24" fill="#8d8174" transform="rotate(-20 60 70)" />
+                <ellipse cx="60" cy="70" rx="11" ry="15" fill="#b7a99a" transform="rotate(-20 60 70)" />
+                <ellipse cx="140" cy="70" rx="20" ry="24" fill="#8d8174" transform="rotate(20 140 70)" />
+                <ellipse cx="140" cy="70" rx="11" ry="15" fill="#b7a99a" transform="rotate(20 140 70)" />
+                <path d="M90 60 L100 45 L106 60 L115 50 L118 63" stroke="#8d8174" stroke-width="3" stroke-linecap="round" fill="none" />
+                <ellipse cx="100" cy="120" rx="66" ry="60" fill="#a49787" />
+                <ellipse cx="100" cy="142" rx="40" ry="32" fill="#d1c7bc" />
+                <circle cx="70" cy="140" r="12" fill="#5c4d3c" opacity="0.4" />
+                <circle cx="128" cy="150" r="9" fill="#5c4d3c" opacity="0.4" />
+                <path d="M110 95 Q115 90 125 93" stroke="#5c4d3c" stroke-width="4" stroke-linecap="round" opacity="0.5" />
+                <rect x="58" y="118" width="22" height="10" rx="3" fill="#f4a261" transform="rotate(25 69 123)" />
+                <circle cx="69" cy="123" r="1.5" fill="#e76f51" />
+                <path d="M70 94 Q80 100 86 98" stroke="#3d3a36" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <path d="M130 94 Q120 100 114 98" stroke="#3d3a36" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <ellipse cx="78" cy="108" rx="6" ry="8" fill="#2b2d42" />
+                <circle cx="76" cy="105" r="2.5" fill="white" />
+                <ellipse cx="122" cy="108" rx="6" ry="8" fill="#2b2d42" />
+                <circle cx="120" cy="105" r="2.5" fill="white" />
+                <path d="M129 116 C129 122 125 125 125 125 C125 125 121 122 121 116 C121 113 125 111 125 111 C125 111 129 113 129 116 Z" fill="#4cc9f0" />
+                <polygon points="97,117 103,117 100,122" fill="#786c5f" />
+                <path d="M94 132 Q100 124 106 132" stroke="#4a4238" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="155" cy="85" r="3" fill="#222" />
+                <ellipse cx="153" cy="82" rx="3" ry="1.5" fill="#a8dadc" opacity="0.7" />
+            </svg>`
+        },
+        2: {
+            title: 'Довольный хомяк Олег',
+            icon: '🍪',
+            quote: '«О, меня помыли и дали печеньку! Ням 🍪»',
+            svg: `
+            <svg class="hamster-svg" viewBox="0 0 200 200" fill="none">
+                <ellipse cx="60" cy="55" rx="22" ry="26" fill="#f4a261" />
+                <ellipse cx="60" cy="55" rx="13" ry="17" fill="#ffb4a2" />
+                <ellipse cx="140" cy="55" rx="22" ry="26" fill="#f4a261" />
+                <ellipse cx="140" cy="55" rx="13" ry="17" fill="#ffb4a2" />
+                <ellipse cx="100" cy="116" rx="68" ry="62" fill="#e76f51" />
+                <ellipse cx="100" cy="118" rx="64" ry="58" fill="#f4a261" />
+                <ellipse cx="100" cy="138" rx="42" ry="34" fill="#faedcd" />
+                <path d="M150 70 L153 76 L159 79 L153 82 L150 88 L147 82 L141 79 L147 76 Z" fill="#ffd166" />
+                <path d="M48 90 L50 94 L54 96 L50 98 L48 102 L46 98 L42 96 L46 94 Z" fill="#ffd166" />
+                <ellipse cx="78" cy="105" rx="7" ry="10" fill="#2b2d42" />
+                <circle cx="76" cy="101" r="3.5" fill="white" />
+                <ellipse cx="122" cy="105" rx="7" ry="10" fill="#2b2d42" />
+                <circle cx="120" cy="101" r="3.5" fill="white" />
+                <ellipse cx="65" cy="120" rx="12" ry="8" fill="#ff758f" opacity="0.6" />
+                <ellipse cx="135" cy="120" rx="12" ry="8" fill="#ff758f" opacity="0.6" />
+                <polygon points="96,114 104,114 100,119" fill="#c9184a" />
+                <path d="M94 122 Q100 128 100 124 Q100 128 106 122" stroke="#590d22" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <circle cx="100" cy="155" r="18" fill="#d4a373" stroke="#bc6c25" stroke-width="2" />
+                <circle cx="95" cy="150" r="2.5" fill="#582f0e" />
+                <circle cx="106" cy="153" r="3" fill="#582f0e" />
+                <circle cx="99" cy="162" r="2.5" fill="#582f0e" />
+                <ellipse cx="80" cy="156" rx="8" ry="7" fill="#f4a261" />
+                <ellipse cx="120" cy="156" rx="8" ry="7" fill="#f4a261" />
+            </svg>`
+        },
+        3: {
+            title: 'Любими Олег',
+            icon: '😍',
+            quote: '«Кажется, я самый любимый Олег на свете! 🥰»',
+            svg: `
+            <svg class="hamster-svg" viewBox="0 0 200 200" fill="none">
+                <ellipse cx="60" cy="55" rx="22" ry="26" fill="#f4a261" />
+                <ellipse cx="60" cy="55" rx="13" ry="17" fill="#ff758f" />
+                <ellipse cx="140" cy="55" rx="22" ry="26" fill="#f4a261" />
+                <ellipse cx="140" cy="55" rx="13" ry="17" fill="#ff758f" />
+                <ellipse cx="100" cy="116" rx="68" ry="62" fill="#ff8fa3" />
+                <ellipse cx="100" cy="118" rx="64" ry="58" fill="#f4a261" />
+                <ellipse cx="100" cy="138" rx="42" ry="34" fill="#faedcd" />
+                <path d="M78 108 C73 98 60 102 60 110 C60 118 78 126 78 126 C78 126 96 118 96 110 C96 102 83 98 78 108 Z" fill="#ff0054" transform="scale(0.65) translate(40, 52)" />
+                <path d="M78 108 C73 98 60 102 60 110 C60 118 78 126 78 126 C78 126 96 118 96 110 C96 102 83 98 78 108 Z" fill="#ff0054" transform="scale(0.65) translate(108, 52)" />
+                <ellipse cx="62" cy="122" rx="14" ry="9" fill="#ff4d6d" opacity="0.75" />
+                <ellipse cx="138" cy="122" rx="14" ry="9" fill="#ff4d6d" opacity="0.75" />
+                <polygon points="96,114 104,114 100,119" fill="#c9184a" />
+                <path d="M94 122 Q100 132 106 122" stroke="#590d22" stroke-width="2.5" fill="#ff4d6d" />
+                <path d="M100 142 C92 130 76 135 76 148 C76 160 100 172 100 172 C100 172 124 160 124 148 C124 135 108 130 100 142 Z" fill="#ff4d6d" stroke="#c9184a" stroke-width="2" />
+                <path d="M42 65 C39 60 32 62 32 67 C32 72 42 77 42 77 C42 77 52 72 52 67 C52 62 45 60 42 65 Z" fill="#ff758f" />
+                <path d="M158 60 C155 55 148 57 148 62 C148 67 158 72 158 72 C158 72 168 67 168 62 C168 57 161 55 158 60 Z" fill="#ff758f" />
+            </svg>`
+        },
+        4: {
+            title: 'зацелованный Олег',
+            icon: '💋',
+            quote: '«Ааа, меня сейчас зацелуют насмерть! 💋💋»',
+            svg: `
+            <svg class="hamster-svg" viewBox="0 0 200 200" fill="none">
+                <ellipse cx="60" cy="55" rx="22" ry="26" fill="#f4a261" />
+                <ellipse cx="60" cy="55" rx="13" ry="17" fill="#ffb4a2" />
+                <ellipse cx="140" cy="55" rx="22" ry="26" fill="#f4a261" />
+                <ellipse cx="140" cy="55" rx="13" ry="17" fill="#ffb4a2" />
+                <ellipse cx="100" cy="116" rx="68" ry="62" fill="#e76f51" />
+                <ellipse cx="100" cy="118" rx="64" ry="58" fill="#f4a261" />
+                <ellipse cx="100" cy="138" rx="42" ry="34" fill="#faedcd" />
+                <path d="M72 105 A5 5 0 0 1 82 105 A4 4 0 0 1 76 109" stroke="#2b2d42" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M118 105 A5 5 0 0 1 128 105 A4 4 0 0 1 122 109" stroke="#2b2d42" stroke-width="3" stroke-linecap="round" fill="none" />
+                <path d="M92 120 Q100 135 110 122" stroke="#590d22" stroke-width="3" fill="#ff4d6d" />
+                <path d="M102 128 Q106 138 111 133" fill="#ff758f" stroke="#c9184a" stroke-width="1.5" />
+                <path d="M96 74 C90 68 82 72 86 78 C90 82 96 86 100 82 C104 86 110 82 114 78 C118 72 110 68 104 74 Z" fill="#d90429" transform="scale(0.6) translate(65, 45)" />
+                <path d="M96 74 C90 68 82 72 86 78 C90 82 96 86 100 82 C104 86 110 82 114 78 C118 72 110 68 104 74 Z" fill="#ff0054" transform="rotate(-25 65 110) scale(0.65) translate(20, 95)" />
+                <path d="M96 74 C90 68 82 72 86 78 C90 82 96 86 100 82 C104 86 110 82 114 78 C118 72 110 68 104 74 Z" fill="#ff0054" transform="rotate(20 135 115) scale(0.65) translate(130, 95)" />
+                <path d="M96 74 C90 68 82 72 86 78 C90 82 96 86 100 82 C104 86 110 82 114 78 C118 72 110 68 104 74 Z" fill="#c9184a" transform="scale(0.7) translate(45, 140)" />
+                <text x="50" y="80" font-size="16">💫</text>
+                <text x="140" y="80" font-size="16">✨</text>
+            </svg>`
+        },
+        5: {
+            title: 'Абсолютно довольный хомячок',
+            icon: '👑',
+            quote: '«Полный чилл. Жизнь удалась. Я звезда 👑💅»',
+            svg: `
+            <svg class="hamster-svg" viewBox="0 0 200 200" fill="none">
+                <ellipse cx="100" cy="155" rx="90" ry="32" fill="#ffd166" stroke="#f4a261" stroke-width="3" />
+                <path d="M25 155 Q100 135 175 155" stroke="#ff758f" stroke-width="6" fill="none" />
+                <ellipse cx="100" cy="130" rx="60" ry="46" fill="#f4a261" />
+                <ellipse cx="100" cy="132" rx="42" ry="32" fill="#faedcd" />
+                <ellipse cx="50" cy="100" rx="16" ry="20" fill="#f4a261" transform="rotate(-30 50 100)" />
+                <ellipse cx="50" cy="100" rx="9" ry="13" fill="#ffb4a2" transform="rotate(-30 50 100)" />
+                <ellipse cx="150" cy="100" rx="16" ry="20" fill="#f4a261" transform="rotate(30 150 100)" />
+                <ellipse cx="150" cy="100" rx="9" ry="13" fill="#ffb4a2" transform="rotate(30 150 100)" />
+                <polygon points="80,82 85,60 92,72 100,55 108,72 115,60 120,82" fill="#ffd700" stroke="#d4af37" stroke-width="2" />
+                <circle cx="85" cy="60" r="2.5" fill="#e63946" />
+                <circle cx="100" cy="55" r="3" fill="#4cc9f0" />
+                <circle cx="115" cy="60" r="2.5" fill="#e63946" />
+                <rect x="68" y="102" width="28" height="18" rx="4" fill="#111" />
+                <rect x="104" y="102" width="28" height="18" rx="4" fill="#111" />
+                <rect x="94" y="108" width="12" height="4" fill="#111" />
+                <line x1="72" y1="105" x2="84" y2="117" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+                <line x1="108" y1="105" x2="120" y2="117" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+                <path d="M96 128 Q104 134 112 126" stroke="#590d22" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <path d="M155 130 L168 130 L164 150 L159 150 Z" fill="#ff4d6d" stroke="#c9184a" stroke-width="1.5" />
+                <line x1="162" y1="150" x2="162" y2="160" stroke="#888" stroke-width="2" />
+                <line x1="156" y1="160" x2="168" y2="160" stroke="#888" stroke-width="2" />
+                <line x1="163" y1="130" x2="170" y2="118" stroke="#06d6a0" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M148 122 Q156 116 164 122 Z" fill="#ffd166" />
+                <ellipse cx="68" cy="148" rx="9" ry="8" fill="#f4a261" />
+                <ellipse cx="132" cy="148" rx="9" ry="8" fill="#f4a261" />
+            </svg>`
+        }
+    };
+
+    function getHamsterStage(kisses) {
+        if (kisses < 50) return 1;
+        if (kisses < 200) return 2;
+        if (kisses < 500) return 3;
+        if (kisses < 1000) return 4;
+        return 5;
+    }
+
     async function fetchHamster() {
         try {
             const res = await fetch(API_HAMSTER);
@@ -1094,11 +1287,20 @@
     }
 
     function renderHamster() {
-        document.getElementById('hamster-total-kisses').innerText = hamsterData.totalKisses;
-        document.getElementById('hamster-level-text').innerText = hamsterData.level;
-
-        // Расчет прогресса уровня
         const currentKisses = hamsterData.totalKisses;
+        const stageNum = getHamsterStage(currentKisses);
+        const stage = HAMSTER_STAGES[stageNum];
+
+        document.getElementById('hamster-total-kisses').innerText = currentKisses;
+        document.getElementById('hamster-level-text').innerText = hamsterData.level;
+        document.getElementById('hamster-level-icon').innerText = stage.icon;
+        document.getElementById('hamster-mood-quote').innerText = stage.quote;
+
+        if (currentRenderedStage !== stageNum) {
+            document.getElementById('hamster-arena').innerHTML = stage.svg;
+            currentRenderedStage = stageNum;
+        }
+
         let prevTarget = 0;
         let nextTarget = 50;
 
@@ -1119,31 +1321,24 @@
             percent = Math.min(100, Math.floor(((currentKisses - prevTarget) / (nextTarget - prevTarget)) * 100));
             document.getElementById('progress-next-label').innerText = `До след. ранга: ${nextTarget - currentKisses} 💋`;
         } else {
-            document.getElementById('progress-next-label').innerText = `Максимальная любовь! 👑`;
+            document.getElementById('progress-next-label').innerText = `Максимальный кайф достигнут! 👑`;
         }
 
         document.getElementById('progress-percent').innerText = `${percent}%`;
         document.getElementById('progress-fill').style.width = `${percent}%`;
 
-        // Дата
         const dateText = hamsterData.lastKissData ? `Сегодня поцелован 💕 (${hamsterData.lastKissData})` : 'Пока еще не целован 🥺';
         document.getElementById('last-kiss-label').innerText = `Последний поцелуй: ${dateText}`;
     }
 
-    /* Тап по хомяку */
     function tapHamster(event) {
-        // Тактильный виброотклик для телефонов
         if (navigator.vibrate) navigator.vibrate(35);
-
-        // Частицы +1 в точке клика
         spawnFloatingKiss(event);
 
-        // Оптимистичный UI (моментальный инкремент)
         hamsterData.totalKisses += 1;
         pendingKisses += 1;
         renderHamster();
 
-        // Батчинг запросов на сервер
         clearTimeout(kissDebounceTimer);
         kissDebounceTimer = setTimeout(flushKissesToServer, 350);
     }
@@ -1179,10 +1374,9 @@
             hamsterData = await res.json();
             renderHamster();
 
-            // Если взяли новый уровень - празднуем!
             if (hamsterData.level !== oldLevel) {
                 triggerConfetti();
-                showToast(`Новый уровень Олега: «${hamsterData.level}»! 🎉🐹`, '👑');
+                showToast(`ЭВОЛЮЦИЯ ХОМЯКА: «${hamsterData.level}»! 🎉🐹`, '👑');
             }
         } catch (e) {
             console.error(e);
@@ -1233,7 +1427,6 @@
         }
     }
 
-    /* --- КОНФЕТТИ И УВЕДОМЛЕНИЯ --- */
     function triggerConfetti() {
         confetti({
             particleCount: 150,
@@ -1258,7 +1451,6 @@
         })[m]);
     }
 
-    // Первый запуск
     fetchCoupons();
 </script>
 </body>
