@@ -18,14 +18,14 @@ public class HamsterController {
     }
 
     @GetMapping
-    public List<HamsterClicker> getClickers(Long id) {
+    public HamsterClicker getClickers(Long id) {
         return hamsterClickerService.getClickerById(id);
     }
 
-    @PostConstruct("/kiss")
-    public HamsterClicker kissHamster(Long id) {
+    @PostMapping("/kiss")
+    public HamsterClicker kissHamster(@RequestParam(defaultValue = "1") int count, Long id) {
         hamsterClickerService.getClickerById(id);
-        hamsterClickerService.kiss(@RequestParam(defaultValue = 1) int count);
+        hamsterClickerService.kiss(count);
         return hamsterClickerService.getClickerById(id);
     }
 }
