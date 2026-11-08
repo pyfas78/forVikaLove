@@ -22,8 +22,9 @@ public class Coupon {
     @Column(name = "category", nullable = false)
     private String category;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "used", nullable = false)
-    private boolean used;
+    private CouponStatus status;
 
     @Column(name = "used_at")
     private LocalDate usedAt;
@@ -32,7 +33,7 @@ public class Coupon {
         this.title = title;
         this.description = description;
         this.category = category;
-        this.used = false;
+        this.status = CouponStatus.AVAILABLE;
         this.usedAt = null;
     }
 
@@ -71,12 +72,12 @@ public class Coupon {
         this.category = category;
     }
 
-    public boolean isUsed() {
-        return used;
+    public CouponStatus getStatus() {
+        return status;
     }
 
-    public void setUsed(boolean used) {
-        this.used = used;
+    public void setStatus(CouponStatus status) {
+        this.status = status;
     }
 
     public LocalDate getUsedAt() {

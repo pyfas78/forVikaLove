@@ -21,9 +21,9 @@ public class CouponController {
         return couponService.getAllCoupons();
     }
 
-    @PostMapping("/{id}/used")
-    public Coupon useCoupon(@PathVariable("id") long id) {
-        return couponService.useCoupon(id);
+    @PostMapping("/{id}/take")
+    public Coupon takeCoupon(@PathVariable("id") long id) {
+        return couponService.takeCoupon(id);
     }
 
     @PostMapping
@@ -31,5 +31,8 @@ public class CouponController {
         return couponService.addCoupon(coupon);
     }
 
-
+    @PostMapping("/complete")
+    public Coupon completeCoupon(@PathVariable("id") Long id) {
+        return couponService.completeCoupon(id);
+    }
 }
