@@ -31,7 +31,7 @@ public class HamsterClickerService {
         if (hamsterClickerRepository.count() == 0) {
             HamsterClicker hamsterClicker = new  HamsterClicker();
             hamsterClicker.setTotalKisses(0);
-            hamsterClicker.setLevel("level_1");
+            hamsterClicker.setLevel("Грустный Одинокий Нелюбимый Ненавистный Никому не нужный Брошенный и т.д. Хомяк");
             hamsterClickerRepository.save(hamsterClicker);
         }
     }
