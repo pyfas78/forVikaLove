@@ -114,7 +114,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- СТИЛИ ШАПКИ КУПОНОВ --- */
+        /* --- ШАПКА КУПОНОВ --- */
         header {
             text-align: center;
             margin-bottom: 25px;
@@ -349,21 +349,25 @@
             position: relative;
         }
 
+        /* Адаптивный бейдж под длинные названия */
         .hamster-level-badge {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             background: linear-gradient(135deg, #fff0f3, #ffe3e8);
             border: 2px solid #ff758f;
             color: var(--primary-dark);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 14px;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 13px;
             font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.3px;
             margin-bottom: 15px;
             box-shadow: 0 4px 15px rgba(255, 117, 143, 0.2);
+            max-width: 95%;
+            line-height: 1.35;
+            text-align: center;
         }
 
         .kisses-counter {
@@ -527,6 +531,20 @@
 
         .modal-overlay.active .modal-box { transform: scale(1); }
 
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #999;
+            cursor: pointer;
+            line-height: 1;
+            padding: 5px;
+        }
+        .modal-close-btn:hover { color: var(--primary); }
+
         .modal-title {
             font-size: 22px;
             font-weight: 700;
@@ -607,11 +625,12 @@
             cursor: pointer;
         }
 
-        /* --- ПАСХАЛКА-МЕМ (ОБНОВЛЕННАЯ С БЕЗОПАСНЫМИ ЗОНАМИ ДЛЯ ТЕЛЕФОНА) --- */
+        /* --- ПАСХАЛКА-МЕМ С РАЗДЕЛЕННЫМИ ЗОНАМИ --- */
         .prank-box {
             text-align: center;
             max-width: 400px;
             padding: 28px 22px;
+            position: relative;
         }
 
         .prank-box h2 {
@@ -726,7 +745,7 @@
 <body>
 
 <div class="container">
-    <!-- ГЛАВНАЯ НАВИГАЦИЯ МЕЖДУ КУПОНАМИ И ХОМЯКОМ -->
+    <!-- ГЛАВНАЯ НАВИГАЦИЯ -->
     <div class="main-nav">
         <button class="nav-tab-btn active" onclick="switchNavTab('coupons', this)">
             🎟️ Чековая книжка
@@ -775,7 +794,8 @@
 
             <div class="hamster-card">
                 <div class="hamster-level-badge" id="hamster-level-badge">
-                    <span id="hamster-level-icon">🥺</span> <span id="hamster-level-text">Скромный хомячОк</span>
+                    <span id="hamster-level-icon">🥺</span>
+                    <span id="hamster-level-text">Грустный Одинокий Нелюбимый Ненавистный Никому не нужный Брошенный и т.д. Хомяк</span>
                 </div>
 
                 <div class="kisses-counter">
@@ -810,6 +830,7 @@
 <!-- ==================== МОДАЛКА: НОВОЕ ЖЕЛАНИЕ ==================== -->
 <div class="modal-overlay" id="add-modal">
     <div class="modal-box">
+        <button class="modal-close-btn" onclick="closeAddModal()">&times;</button>
         <div class="modal-title">Загадать желание ✨</div>
         <div class="form-group">
             <label>Название желания</label>
@@ -839,17 +860,16 @@
 <!-- ==================== ПАСХАЛКА-МЕМ С РАЗДЕЛЕННЫМИ ЗОНАМИ ==================== -->
 <div class="modal-overlay" id="prank-modal">
     <div class="modal-box prank-box">
+        <button class="modal-close-btn" onclick="closePrankModal()">&times;</button>
         <h2>Проверка чувств! 🚨</h2>
         <p>Прежде чем взять это желание, ответь честно:<br><b>Ты меня ненавидишь? 🥺</b></p>
 
-        <!-- АРЕНА ДЛЯ УБЕГАЮЩЕЙ КНОПКИ ДА -->
         <div class="prank-escape-zone" id="prank-arena">
             <button class="btn-yes-love" id="btn-prank-yes">Да 😡</button>
         </div>
 
         <p id="prank-hint" class="prank-hint">Попробуй нажать «Да» 😜</p>
 
-        <!-- БЕЗОПАСНАЯ ЗОНА ДЛЯ КНОПКИ НЕТ (НИКОГДА НЕ ПЕРЕКРЫВАЕТСЯ) -->
         <div class="prank-safe-zone">
             <button class="btn-no-love" id="btn-prank-no" onclick="handleNoClick(event)">
                 НЕТ, Я ТЕБЯ ЛЮБЛЮ! ❤️
@@ -873,9 +893,12 @@
     let selectedCategory = 'ROMANTIC';
     let pendingCouponId = null;
 
+    // Счетчик попыток взять купон
+    let takeCouponAttempts = 0;
+
     let hamsterData = {
         totalKisses: 0,
-        level: 'Скромный хомячОк',
+        level: 'Грустный Одинокий Нелюбимый Ненавистный Никому не нужный Брошенный и т.д. Хомяк',
         lastKissData: null
     };
     let pendingKisses = 0;
@@ -952,8 +975,7 @@
             return;
         }
 
-        // СЧЕТЧИК ТОЛЬКО ДОСТУПНЫХ КУПОНОВ (СТРОГО КАЖДЫЙ 3-Й)
-        let availableCount = 0;
+        let availableIdx = 0;
 
         filtered.forEach((c) => {
             const card = document.createElement('div');
@@ -962,12 +984,10 @@
             let actionArea = '';
 
             if (c.status === 'AVAILABLE') {
-                availableCount++;
-                const isPrank = (availableCount % 3 === 0);
-
+                availableIdx++;
                 statusClass = 'available';
                 badgeText = 'Доступно ✨';
-                actionArea = `<button class="action-btn btn-take" onclick="handleCouponClick(${c.id}, ${isPrank})">
+                actionArea = `<button class="action-btn btn-take" onclick="handleCouponClick(${c.id}, ${availableIdx})">
                     Взять в работу 💖
                 </button>`;
             } else if (c.status === 'IN_PROGRESS') {
@@ -999,8 +1019,16 @@
         });
     }
 
-    /* --- ЛОГИКА КЛИКА ПО КУПОНУ --- */
-    function handleCouponClick(id, isPrank) {
+    /* --- ЖЕЛЕЗОБЕТОННАЯ ПРОВЕРКА ПАСХАЛКИ --- */
+    function handleCouponClick(id, cardPosition) {
+        takeCouponAttempts++;
+
+        // Срабатывает:
+        // 1) Либо на 3-й купон по ID (3, 6, 9)
+        // 2) Либо на 3-ю доступную карточку на экране (cardPosition === 3, 6, ...)
+        // 3) Либо на каждый 3-й клик по кнопке "Взять в работу"
+        const isPrank = (id % 3 === 0) || (cardPosition % 3 === 0) || (takeCouponAttempts % 3 === 0);
+
         if (isPrank) {
             pendingCouponId = id;
             openPrankModal();
@@ -1047,7 +1075,7 @@
         }
     }
 
-    /* --- ПАСХАЛКА "ТЫ МЕНЯ НЕНАВИДИШЬ?" (БЕЗУПРЕЧНАЯ РАБОТА НА ТЕЛЕФОНЕ) --- */
+    /* --- ПАСХАЛКА "ТЫ МЕНЯ НЕНАВИДИШЬ?" --- */
     const prankPhrases = [
         'Не попала! 😜',
         'Даже не думай! 😂',
@@ -1112,7 +1140,10 @@
             e.preventDefault();
             e.stopPropagation();
         }
-        if (!pendingCouponId) return;
+        if (!pendingCouponId) {
+            closePrankModal();
+            return;
+        }
         const id = pendingCouponId;
         closePrankModal();
         showToast('Фух! Я так и знал! ❤️ Погнал выполнять!', '🥰');
@@ -1122,7 +1153,7 @@
     /* --- 5 СТАДИЙ ЭВОЛЮЦИИ ХОМЯКА ОЛЕГА --- */
     const HAMSTER_STAGES = {
         1: {
-            title: 'Скромный хомячОк',
+            title: 'Грустный Одинокий Нелюбимый Ненавистный Никому не нужный Брошенный и т.д. Хомяк',
             icon: '🥺',
             quote: '«Меня никто не целует... жизнь тлен 🥺»',
             svg: `
@@ -1451,7 +1482,9 @@
         })[m]);
     }
 
+    // Первый запуск
     fetchCoupons();
+    fetchHamster();
 </script>
 </body>
 </html>
