@@ -16,6 +16,7 @@ public class HamsterClickerService {
     }
 
     private HamsterClicker checkAndResetDaily(HamsterClicker hamsterClicker) {
+        if(hamsterClicker == null){return null;}
         if(hamsterClicker.getLastKissData() != null && hamsterClicker.getLastKissData().isBefore(LocalDate.now())) {
             hamsterClicker.setTotalKisses(0);
             hamsterClicker.setLevel("Грустный Одинокий Нелюбимый Ненавистный Никому не нужный Брошенный и т.д. Хомяк");
@@ -37,8 +38,8 @@ public class HamsterClickerService {
     }
 
     public HamsterClicker getClickerById(Long id) {
-        checkAndResetDaily(hamsterClickerRepository.getOne(id));
-        return hamsterClickerRepository.findById(id).orElse(null);
+        HamsterClicker hamsterClicker = hamsterClickerRepository.findById(id).orElse(null);
+        return checkAndResetDaily(hamsterClicker);
     }
 
 
