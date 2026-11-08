@@ -22,7 +22,7 @@ public class HamsterClicker {
 
     public HamsterClicker(int totalKisses, String level, LocalDate lastKissData) {
         this.totalKisses = 0;
-        this.level = "level_1";
+        this.level = "Грустный Одинокий Нелюбимый Ненавистный Никому не нужный Брошенный и т.д. Хомяк";
         this.lastKissData = null;
     }
     public HamsterClicker() {}

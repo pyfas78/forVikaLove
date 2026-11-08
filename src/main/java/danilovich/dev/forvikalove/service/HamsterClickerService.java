@@ -15,6 +15,17 @@ public class HamsterClickerService {
         this.hamsterClickerRepository = hamsterClickerRepository;
     }
 
+    private HamsterClicker checkAndResetDaily(HamsterClicker hamsterClicker) {
+        if(hamsterClicker.getLastKissData() != null && hamsterClicker.getLastKissData().isBefore(LocalDate.now())) {
+            hamsterClicker.setTotalKisses(0);
+            hamsterClicker.setLevel("Грустный Одинокий Нелюбимый Ненавистный Никому не нужный Брошенный и т.д. Хомяк");
+            hamsterClicker.setLastKissData(null);
+            return hamsterClickerRepository.save(hamsterClicker);
+        } else{
+            return hamsterClicker;
+        }
+    }
+
     @PostConstruct
     public void init() {
         if (hamsterClickerRepository.count() == 0) {
@@ -26,14 +37,16 @@ public class HamsterClickerService {
     }
 
     public HamsterClicker getClickerById(Long id) {
+        checkAndResetDaily(hamsterClickerRepository.getOne(id));
         return hamsterClickerRepository.findById(id).orElse(null);
     }
 
 
     public HamsterClicker kiss(int count) {
         HamsterClicker hamster = hamsterClickerRepository.findById(1L).orElse(null);
+        checkAndResetDaily(hamster);
         hamster.setTotalKisses(hamster.getTotalKisses() + count);
-        if(hamster.getTotalKisses() < 50) {hamster.setLevel("Скромный хомячОк");}
+        if(hamster.getTotalKisses() < 50) {hamster.setLevel("Грустный Одинокий Нелюбимый Ненавистный Никому не нужный Брошенный и т.д. Хомяк");}
         else if(hamster.getTotalKisses() < 200) {hamster.setLevel("Довольный хомяк Олег");}
         else if(hamster.getTotalKisses() < 500) {hamster.setLevel("Любими Олег");}
         else if (hamster.getTotalKisses() < 1000) {hamster.setLevel("зацелованный Олег"); }
