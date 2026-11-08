@@ -14,6 +14,8 @@
             --primary: #ff4d6d;
             --primary-dark: #c9184a;
             --secondary: #ff758f;
+            --warning: #f39c12;
+            --success: #2ecc71;
             --bg-gradient: linear-gradient(135deg, #fff0f3 0%, #ffe3e8 50%, #fcd5ce 100%);
             --card-bg: rgba(255, 255, 255, 0.95);
             --text-dark: #590d22;
@@ -53,7 +55,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             padding: 40px 20px;
             position: relative;
@@ -82,21 +84,21 @@
 
         .stats-bar {
             display: inline-flex;
-            gap: 20px;
+            gap: 15px;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
             padding: 10px 25px;
             border-radius: 50px;
             box-shadow: 0 4px 20px rgba(255, 77, 109, 0.12);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--text-muted);
             margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .stats-bar span b {
-            color: var(--primary);
-        }
+        .stats-bar span b { color: var(--primary); }
 
         .controls-bar {
             display: flex;
@@ -107,29 +109,21 @@
             margin-bottom: 35px;
         }
 
-        .filters {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .filters { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .filter-btn {
             background: white;
             border: 2px solid #ffd6de;
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 25px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--text-muted);
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .filter-btn:hover {
-            border-color: var(--secondary);
-            transform: translateY(-2px);
-        }
-
+        .filter-btn:hover { border-color: var(--secondary); transform: translateY(-2px); }
         .filter-btn.active {
             background: var(--primary);
             color: white;
@@ -160,7 +154,7 @@
 
         .coupons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
         }
 
@@ -178,10 +172,7 @@
             overflow: hidden;
         }
 
-        .coupon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-        }
+        .coupon-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2); }
 
         .coupon-card::before, .coupon-card::after {
             content: '';
@@ -196,8 +187,14 @@
         .coupon-card::before { left: -12px; }
         .coupon-card::after { right: -12px; }
 
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
         .coupon-category {
-            align-self: flex-start;
             background: #ffe5ec;
             color: var(--primary);
             font-size: 11px;
@@ -206,7 +203,22 @@
             letter-spacing: 1px;
             padding: 4px 12px;
             border-radius: 20px;
-            margin-bottom: 12px;
+        }
+
+        .status-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+        .status-badge.available { background: #e8f8f5; color: #27ae60; }
+        .status-badge.in_progress { background: #fef9e7; color: #d35400; animation: pulse 1.5s infinite; }
+        .status-badge.completed { background: #f2f4f4; color: #7f8c8d; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .coupon-title {
@@ -226,46 +238,52 @@
         }
 
         .coupon-action {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             border-top: 1px dashed #ffd6de;
             padding-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .btn-redeem {
+        .btn-action {
             width: 100%;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white;
             border: none;
             padding: 12px 18px;
             border-radius: 12px;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.25);
             transition: all 0.3s ease;
         }
 
-        .btn-redeem:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.4);
+        .btn-take {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.25);
+        }
+        .btn-take:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(255, 77, 109, 0.4); }
+
+        .btn-complete {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.25);
+        }
+        .btn-complete:hover { transform: scale(1.02); }
+
+        /* Стили карточек в прогрессе и завершенных */
+        .coupon-card.in-progress-card {
+            border-color: #f39c12;
+            background: #fffdf9;
         }
 
-        .coupon-card.used {
+        .coupon-card.completed-card {
             border-color: var(--used-border);
             opacity: 0.85;
             background: #fdfdfd;
         }
-
-        .coupon-card.used .coupon-title {
+        .coupon-card.completed-card .coupon-title {
             color: #718096;
             text-decoration: line-through;
-        }
-
-        .coupon-card.used .coupon-category {
-            background: #edf2f7;
-            color: #718096;
         }
 
         .stamp-used {
@@ -278,7 +296,6 @@
             padding: 6px 14px;
             border-radius: 10px;
             text-align: center;
-            width: 100%;
             transform: rotate(-5deg);
         }
 
@@ -288,13 +305,6 @@
             font-weight: 500;
             color: #a0aec0;
             margin-top: 3px;
-        }
-
-        .loader, .empty-state {
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 50px 20px;
-            color: var(--text-muted);
         }
 
         .modal-overlay {
@@ -310,11 +320,7 @@
             pointer-events: none;
             transition: all 0.3s ease;
         }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .modal {
             background: white;
@@ -328,10 +334,7 @@
             box-shadow: 0 20px 45px rgba(0,0,0,0.25);
             position: relative;
         }
-
-        .modal-overlay.active .modal {
-            transform: scale(1);
-        }
+        .modal-overlay.active .modal { transform: scale(1); }
 
         .modal-emoji { font-size: 46px; margin-bottom: 12px; }
         .modal h2 { font-size: 22px; margin-bottom: 10px; color: var(--text-dark); }
@@ -441,7 +444,9 @@
         <div class="stats-bar">
             <span>Доступно: <b id="stat-available">0</b></span>
             <span>•</span>
-            <span>Исполнено: <b id="stat-used">0</b></span>
+            <span>Выполняется: <b id="stat-progress">0</b></span>
+            <span>•</span>
+            <span>Исполнено: <b id="stat-completed">0</b></span>
             <span>•</span>
             <span>Всего: <b id="stat-total">0</b></span>
         </div>
@@ -449,8 +454,9 @@
         <div class="controls-bar">
             <div class="filters">
                 <button class="filter-btn active" onclick="setFilter('all', this)">Все желания</button>
-                <button class="filter-btn" onclick="setFilter('available', this)">Доступные ✨</button>
-                <button class="filter-btn" onclick="setFilter('used', this)">Исполненные 💌</button>
+                <button class="filter-btn" onclick="setFilter('AVAILABLE', this)">Доступные ✨</button>
+                <button class="filter-btn" onclick="setFilter('IN_PROGRESS', this)">В процессе 🏃‍♂️</button>
+                <button class="filter-btn" onclick="setFilter('COMPLETED', this)">Исполненные 💌</button>
             </div>
             <button class="btn-add-coupon" onclick="openCreateModal()">
                 🪄 Загадать желание
@@ -483,7 +489,7 @@
 
             <div class="form-group">
                 <label>Категория:</label>
-                <input type="text" id="new-category" class="form-control" value="Приятности" required>
+                <input type="text" id="new-category" class="form-control" value="Приятности 🌸" required>
                 <div class="cat-badges">
                     <span class="cat-badge selected" onclick="selectCat('Приятности 🌸', this)">Приятности 🌸</span>
                     <span class="cat-badge" onclick="selectCat('Романтика 💖', this)">Романтика 💖</span>
@@ -505,15 +511,15 @@
     <div class="modal">
         <div class="modal-emoji">🎁</div>
         <h2 id="modal-title">Использовать купон?</h2>
-        <p id="modal-desc">Олег уже готов бежать и выполнять это желание! Точно активируем?</p>
+        <p id="modal-desc">Олег побежит выполнять его прямо сейчас! Активируем?</p>
         <div class="modal-actions">
             <button class="modal-btn cancel" onclick="closeModal()">Отмена</button>
-            <button class="modal-btn confirm" id="modal-confirm-btn">Да, активировать! 💖</button>
+            <button class="modal-btn confirm" id="modal-confirm-btn">Да, хочу! 💖</button>
         </div>
     </div>
 </div>
 
-<!-- МОДАЛКА: ПРАНК "ТЫ МЕНЯ НЕНАВИДИШЬ?" (КАЖДЫЙ 3-Й КУПОН) -->
+<!-- МОДАЛКА: ПАСХАЛКА (КАЖДЫЙ 3-Й КУПОН) -->
 <div class="modal-overlay" id="prank-modal">
     <div class="modal">
         <div class="modal-emoji">⚠️</div>
@@ -571,7 +577,7 @@
         } catch (err) {
             console.error(err);
             document.getElementById('coupons-container').innerHTML = `
-                    <div class="empty-state">
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
                         <h3>Не удалось загрузить купоны 😿</h3>
                         <p>Убедись, что Spring Boot запущен на порту 8080!</p>
                     </div>
@@ -581,20 +587,20 @@
 
     function updateStats() {
         const total = coupons.length;
-        const used = coupons.filter(c => c.used).length;
-        const available = total - used;
+        const available = coupons.filter(c => c.status === 'AVAILABLE').length;
+        const progress = coupons.filter(c => c.status === 'IN_PROGRESS').length;
+        const completed = coupons.filter(c => c.status === 'COMPLETED').length;
 
         document.getElementById('stat-total').innerText = total;
-        document.getElementById('stat-used').innerText = used;
         document.getElementById('stat-available').innerText = available;
+        document.getElementById('stat-progress').innerText = progress;
+        document.getElementById('stat-completed').innerText = completed;
     }
 
     function setFilter(filter, element) {
         currentFilter = filter;
         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-        if (element) {
-            element.classList.add('active');
-        }
+        if (element) element.classList.add('active');
         renderCoupons();
     }
 
@@ -603,14 +609,15 @@
         container.innerHTML = '';
 
         let filtered = coupons;
-        if (currentFilter === 'available') filtered = coupons.filter(c => !c.used);
-        if (currentFilter === 'used') filtered = coupons.filter(c => c.used);
+        if (currentFilter !== 'all') {
+            filtered = coupons.filter(c => c.status === currentFilter);
+        }
 
         if (filtered.length === 0) {
             container.innerHTML = `
-                    <div class="empty-state">
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
                         <h3>Здесь пока ничего нет 💕</h3>
-                        <p>Нажми «🪄 Загадать желание», чтобы добавить первое!</p>
+                        <p>Нажми «🪄 Загадать желание», чтобы добавить!</p>
                     </div>
                 `;
             return;
@@ -619,53 +626,73 @@
         filtered.forEach((coupon, index) => {
             const card = document.createElement('div');
             card.classList.add('coupon-card');
-            if (coupon.used) card.classList.add('used');
+
+            let statusBadgeText = 'Доступен ✨';
+            let statusBadgeClass = 'available';
+
+            if (coupon.status === 'IN_PROGRESS') {
+                card.classList.add('in-progress-card');
+                statusBadgeText = 'Олег выполняет 🏃‍♂️💨';
+                statusBadgeClass = 'in_progress';
+            } else if (coupon.status === 'COMPLETED') {
+                card.classList.add('completed-card');
+                statusBadgeText = 'Исполнено ✅';
+                statusBadgeClass = 'completed';
+            }
+
+            const isPrankCoupon = ((index + 1) % 3 === 0);
 
             const dateFormatted = coupon.usedAt
                 ? new Date(coupon.usedAt).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
                 : '';
 
-            // 🔥 КАЖДЫЙ ТРЕТИЙ КУПОН (3-й, 6-й, 9-й и т.д.)
-            const isPrankCoupon = ((index + 1) % 3 === 0);
+            let actionHtml = '';
+            if (coupon.status === 'AVAILABLE') {
+                actionHtml = `
+                        <button class="btn-action btn-take" onclick="handleCouponClick(${coupon.id}, '${escapeHtml(coupon.title)}', ${isPrankCoupon})">
+                            ✨ Активировать купон
+                        </button>
+                    `;
+            } else if (coupon.status === 'IN_PROGRESS') {
+                actionHtml = `
+                        <button class="btn-action btn-complete" onclick="completeCoupon(${coupon.id})">
+                            ✅ Завершить (Олег всё сделал!)
+                        </button>
+                    `;
+            } else {
+                actionHtml = `
+                        <div class="stamp-used">
+                            Исполнено 💌
+                            <div class="used-date">${dateFormatted}</div>
+                        </div>
+                    `;
+            }
 
             card.innerHTML = `
                     <div>
-                        <div class="coupon-category">${escapeHtml(coupon.category)}</div>
+                        <div class="card-top">
+                            <span class="coupon-category">${escapeHtml(coupon.category)}</span>
+                            <span class="status-badge ${statusBadgeClass}">${statusBadgeText}</span>
+                        </div>
                         <div class="coupon-title">${escapeHtml(coupon.title)}</div>
                         <div class="coupon-desc">${escapeHtml(coupon.description)}</div>
                     </div>
                     <div class="coupon-action">
-                        ${coupon.used ? `
-                            <div class="stamp-used">
-                                Исполнено 💌
-                                <div class="used-date">${dateFormatted}</div>
-                            </div>
-                        ` : `
-                            <button class="btn-redeem" onclick="handleCouponClick(${coupon.id}, '${escapeHtml(coupon.title)}', ${isPrankCoupon})">
-                                ✨ Использовать купон
-                            </button>
-                        `}
+                        ${actionHtml}
                     </div>
                 `;
             container.appendChild(card);
         });
     }
 
-    /* --- СОЗДАНИЕ КУПОНА ВИКОЙ --- */
-    function openCreateModal() {
-        document.getElementById('create-modal').classList.add('active');
-    }
-
-    function closeCreateModal() {
-        document.getElementById('create-modal').classList.remove('active');
-    }
+    /* --- СОЗДАНИЕ КУПОНА --- */
+    function openCreateModal() { document.getElementById('create-modal').classList.add('active'); }
+    function closeCreateModal() { document.getElementById('create-modal').classList.remove('active'); }
 
     function selectCat(catName, element) {
         document.getElementById('new-category').value = catName;
         document.querySelectorAll('.cat-badge').forEach(b => b.classList.remove('selected'));
-        if (element) {
-            element.classList.add('selected');
-        }
+        if (element) element.classList.add('selected');
     }
 
     async function handleCreateCoupon(event) {
@@ -683,31 +710,26 @@
                 body: JSON.stringify({ title, description, category })
             });
 
-            if (!response.ok) {
-                throw new Error('Не удалось сохранить купон на сервере');
-            }
+            if (!response.ok) throw new Error('Не удалось сохранить купон');
 
             const createdCoupon = await response.json();
             coupons.push(createdCoupon);
 
             closeCreateModal();
             document.getElementById('create-coupon-form').reset();
-
-            const firstBadge = document.querySelector('.cat-badge');
-            selectCat('Приятности 🌸', firstBadge);
+            selectCat('Приятности 🌸', document.querySelector('.cat-badge'));
 
             triggerConfetti();
-            showToast('Желание добавлено в чековую книжку! 🪄', '💖');
+            showToast('Желание записано в книжку! 🪄', '💖');
             updateStats();
             renderCoupons();
-
         } catch (err) {
             console.error(err);
             showToast(err.message, '⚠️');
         }
     }
 
-    /* --- КЛИК ПО КУПОНУ --- */
+    /* --- АКТИВАЦИЯ КУПОНА (ВЗЯТЬ В РАБОТУ) --- */
     function handleCouponClick(id, title, isPrank) {
         pendingCouponId = id;
         if (isPrank) {
@@ -731,8 +753,47 @@
         if (!pendingCouponId) return;
         const id = pendingCouponId;
         closeModal();
-        await redeemCoupon(id);
+        await takeCoupon(id);
     });
+
+    async function takeCoupon(id) {
+        try {
+            const response = await fetch(`${API_BASE}/${id}/take`, { method: 'POST' });
+            if (!response.ok) throw new Error('Не удалось взять купон');
+
+            const updatedCoupon = await response.json();
+            const idx = coupons.findIndex(c => c.id === id);
+            if (idx !== -1) coupons[idx] = updatedCoupon;
+
+            triggerConfetti();
+            showToast('Купон передан Олегу в работу! 🏃‍♂️💨', '🔥');
+            updateStats();
+            renderCoupons();
+        } catch (err) {
+            console.error(err);
+            showToast(err.message, '⚠️');
+        }
+    }
+
+    /* --- ЗАВЕРШЕНИЕ КУПОНА (ОЛЕГ ВЫПОЛНИЛ) --- */
+    async function completeCoupon(id) {
+        try {
+            const response = await fetch(`${API_BASE}/${id}/complete`, { method: 'POST' });
+            if (!response.ok) throw new Error('Не удалось завершить купон');
+
+            const updatedCoupon = await response.json();
+            const idx = coupons.findIndex(c => c.id === id);
+            if (idx !== -1) coupons[idx] = updatedCoupon;
+
+            triggerConfetti();
+            showToast('Желание официально исполнено! 💌', '🎉');
+            updateStats();
+            renderCoupons();
+        } catch (err) {
+            console.error(err);
+            showToast(err.message, '⚠️');
+        }
+    }
 
     /* --- ПАСХАЛКА "ТЫ МЕНЯ НЕНАВИДИШЬ?" --- */
     const prankPhrases = ['Не попала! 😜', 'Даже не думай! 😂', 'Кнопка сломалась! 🏃‍♂️💨', 'Куда тянешься? 🙈', 'Ой, убежала! 💨', 'Попробуй другую кнопку! ❤️', 'Без шансов! 💅'];
@@ -796,29 +857,8 @@
         if (!pendingCouponId) return;
         const id = pendingCouponId;
         closePrankModal();
-        showToast('Фух! Я так и знал! ❤️ Желание активировано!', '🥰');
-        await redeemCoupon(id);
-    }
-
-    /* --- АКТИВАЦИЯ КУПОНА --- */
-    async function redeemCoupon(id) {
-        try {
-            const response = await fetch(`${API_BASE}/${id}/used`, { method: 'POST' });
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error || 'Не удалось активировать купон');
-            }
-            const updatedCoupon = await response.json();
-            const idx = coupons.findIndex(c => c.id === id);
-            if (idx !== -1) coupons[idx] = updatedCoupon;
-
-            triggerConfetti();
-            updateStats();
-            renderCoupons();
-        } catch (err) {
-            console.error(err);
-            showToast(err.message, '⚠️');
-        }
+        showToast('Фух! Я так и знал! ❤️ Погнал выполнять!', '🥰');
+        await takeCoupon(id);
     }
 
     function triggerConfetti() {

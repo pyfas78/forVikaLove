@@ -31,7 +31,7 @@ public class CouponController {
         return couponService.addCoupon(coupon);
     }
 
-    @PostMapping("/complete")
+    @PostMapping("/{id}/complete")
     public Coupon completeCoupon(@PathVariable("id") Long id) {
         return couponService.completeCoupon(id);
     }
